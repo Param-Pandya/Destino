@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Destino — AI Travel Planner | Multi-Agent Trip Planning</title>
+  <meta name="title" content="Destino — AI Travel Planner | Multi-Agent Trip Planning">
+  <meta name="description" content="Destino is an AI-powered multi-agent travel planner for flight search, hotel discovery, weather analysis, budget optimization, and personalized itinerary planning.">
+  <meta name="author" content="Param Pandya (parampandya.dev)">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://destino.parampandya.dev">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- Open Graph / Facebook / LinkedIn / Discord -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://destino.parampandya.dev">
+  <meta property="og:title" content="Destino — AI Travel Planner | Multi-Agent Trip Planning">
+  <meta property="og:description" content="Destino is an AI-powered multi-agent travel planner for flight search, hotel discovery, weather analysis, budget optimization, and personalized itinerary planning.">
+  <meta property="og:site_name" content="Destino">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://destino.parampandya.dev/static/og-image.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://destino.parampandya.dev">
+  <meta name="twitter:title" content="Destino — AI Travel Planner | Multi-Agent Trip Planning">
+  <meta name="twitter:description" content="Destino is an AI-powered multi-agent travel planner for flight search, hotel discovery, weather analysis, budget optimization, and personalized itinerary planning.">
+  <meta name="twitter:image" content="https://destino.parampandya.dev/static/og-image.png">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Destino",
+    "applicationCategory": "TravelApplication",
+    "operatingSystem": "All",
+    "description": "Destino is an AI-powered multi-agent travel planner for flight search, hotel discovery, weather analysis, budget optimization, and personalized itinerary planning.",
+    "url": "https://destino.parampandya.dev",
+    "author": {
+      "@type": "Person",
+      "name": "Param Pandya",
+      "url": "https://parampandya.dev"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- Google Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css?v=700">
+</head>
+<body>
+  <!-- Interactive Constellation Network Canvas -->
+  <canvas id="starfieldCanvas" aria-hidden="true"></canvas>
+
+  <!-- Top Glass Navigation Bar -->
+  <header class="navbar-wrapper">
+    <nav class="navbar-container" aria-label="Main Navigation">
+      <div class="nav-brand">
+        <div class="brand-avatar" aria-hidden="true">✈️</div>
+        <span class="brand-title">Destino</span>
+      </div>
+
+      <div class="badge-status nav-center-badge">
+        <span class="green-dot pulse" aria-hidden="true"></span>
+        AI-POWERED MULTI-AGENT TRAVEL PLANNER
+      </div>
+
+      <div class="nav-actions desktop-nav-actions">
+        <a href="/docs" class="doc-link">Documentation →</a>
+        <a href="#planner" class="contact-btn" onclick="focusPlannerInput(event)">Get Started ↗</a>
+      </div>
+
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" onclick="toggleMobileMenu(event)">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </nav>
+
+    <!-- Floating Mobile Dropdown Menu -->
+    <div class="mobile-menu-dropdown hidden" id="mobileMenuDropdown">
+      <a href="/docs" class="mobile-menu-link" onclick="closeMobileMenu()">Documentation →</a>
+      <a href="#planner" class="mobile-menu-btn" onclick="focusPlannerInput(event); closeMobileMenu();">Get Started ↗</a>
+    </div>
+  </header>
+  <div class="mobile-menu-backdrop hidden" id="mobileMenuBackdrop" onclick="closeMobileMenu()"></div>
+
+  <main class="app-container">
+    <!-- Hero Section -->
+    <section class="hero-section" aria-labelledby="main-heading">
+      <h1 id="main-heading" class="hero-title">Destino</h1>
+
+      <div class="tech-stack-badge">
+        <span>Supervisor Agent</span>
+        <span class="dot-sep">•</span>
+        <span>LangGraph</span>
+        <span class="dot-sep">•</span>
+        <span>MCP</span>
+        <span class="dot-sep">•</span>
+        <span>HITL Guardrails</span>
+      </div>
+
+      <p class="hero-description">
+        An AI-powered multi-agent travel planner for flight search, hotel discovery, weather analysis, budget optimization, and personalized itinerary planning.
+      </p>
+    </section>
+
+    <!-- Main Planner Card -->
+    <section id="planner" class="planner-card" aria-label="Travel Request Section">
+      <div class="card-header">
+        <div>
+          <div class="title-with-currency">
+            <h2>Where do you want to go?</h2>
+            <div class="currency-pill">
+              <label for="currencySelect"><span class="currency-label-desktop">Currency:</span></label>
+              <select id="currencySelect" class="currency-select" aria-label="Select Currency">
+                <option value="INR (₹)" selected>INR (₹)</option>
+                <option value="USD ($)">USD ($)</option>
+                <option value="EUR (€)">EUR (€)</option>
+                <option value="GBP (£)">GBP (£)</option>
+              </select>
+            </div>
+          </div>
+          <p>
+            Describe your destination, origin, duration, and budget. Our supervisor agent will coordinate specialists.
+          </p>
+        </div>
+        <div class="header-controls">
+          <div class="status-pill">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-text-desktop">Agent Network Active</span>
+            <span class="status-text-mobile">Agent Active</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-area">
+        <textarea
+          id="userInput"
+          rows="4"
+          aria-label="Travel Planning Request Prompt"
+          placeholder="Plan a complete 7 days Japan trip including flights, hotels and sightseeing under 2 lakhs..."
+        ></textarea>
+        <button id="sendBtn" onclick="sendMessage()" aria-label="Generate Travel Draft">
+          <span id="btnText">Generate Draft →</span>
+          <span id="btnLoader" class="loader hidden" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div class="quick-prompts">
+        <button onclick="setPrompt('Plan a complete 7 days Japan trip including flights, hotels and sightseeing under 2 lakhs.')">
+          🚀 Japan 7-Day Plan
+        </button>
+        <button onclick="setPrompt('Plan a 5 days Dubai luxury trip with flights, hotels and sightseeing.')">
+          🌴 Dubai 5-Day Luxury
+        </button>
+        <button onclick="setPrompt('Plan a 7 days Thailand trip with budget hotels and sightseeing.')">
+          🏖️ Thailand Budget
+        </button>
+        <button onclick="setPrompt('Give me global flight and airline route options.')">
+          ✈️ Global Flights
+        </button>
+      </div>
+    </section>
+
+    <!-- Supervisor Execution Workflow -->
+    <section id="workflowSection" class="workflow-section hidden" aria-label="Supervisor Workflow Execution Plan">
+      <div class="workflow-header">
+        <div>
+          <span class="eyebrow">Supervisor Agent</span>
+          <h2>Execution Plan</h2>
+        </div>
+        <span id="guardrailBadge" class="guardrail-badge">Guardrail passed</span>
+      </div>
+      <p id="supervisorReasoning" class="supervisor-reasoning"></p>
+      <div id="agentChips" class="agent-chips"></div>
+    </section>
+
+    <!-- AI Output & Itinerary Result -->
+    <section id="resultSection" class="result-section hidden" aria-label="AI Travel Plan Output">
+      <div class="result-header">
+        <div>
+          <h2 id="resultTitle">Your AI Travel Plan</h2>
+          <p id="threadInfo">Thread ID: -</p>
+        </div>
+        <div class="result-actions">
+          <button class="copy-btn" onclick="copyResult()">Copy</button>
+          <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+        </div>
+      </div>
+
+      <div id="pdfContent" class="pdf-content">
+        <h1 class="pdf-title">AI Travel Plan</h1>
+        <div id="resultBox" class="result-box"></div>
+      </div>
+    </section>
+
+    <!-- Human-in-the-Loop Review -->
+    <section id="approvalSection" class="approval-section hidden" aria-label="Human in the Loop Review">
+      <div class="approval-icon" aria-hidden="true">👤</div>
+      <div class="approval-content">
+        <span class="eyebrow">Human-in-the-Loop</span>
+        <h2>Review the draft itinerary</h2>
+        <p id="approvalRequest">
+          Approve the draft or provide feedback before the final plan is generated.
+        </p>
+
+        <textarea
+          id="approvalFeedback"
+          class="feedback-input"
+          aria-label="Revision Feedback"
+          placeholder="Add revision feedback, for example: reduce the hotel cost and add one free day..."
+        ></textarea>
+
+        <div class="approval-actions">
+          <button id="approveBtn" class="approve-btn" onclick="submitApproval(true)">
+            Approve & Generate Final →
+          </button>
+          <button id="reviseBtn" class="revise-btn" onclick="submitApproval(false)">
+            Revise Using Feedback
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="errorBox" class="error-box hidden" role="alert"></section>
+  </main>
+
+  <footer>
+    <div class="footer-desktop">
+      Destino — Designed & Engineered by <a href="https://parampandya.dev" target="_blank" rel="noopener" style="color: #818cf8; text-decoration: none; font-weight: 700;">Param Pandya</a>
+    </div>
+    <div class="footer-mobile">
+      <div>Destino — Designed & Engineered</div>
+      <div>By</div>
+      <div><a href="https://parampandya.dev" target="_blank" rel="noopener" style="color: #818cf8; text-decoration: none; font-weight: 700;">Param Pandya</a></div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="/static/script.js?v=700"></script>
+</body>
+</html>

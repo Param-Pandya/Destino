@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Documentation — Destino | Multi-Agent Travel System Architecture</title>
+  <meta name="title" content="Documentation — Destino | Multi-Agent Travel System Architecture">
+  <meta name="description" content="Technical documentation and architecture overview for Destino, an AI-powered multi-agent travel planner built with LangGraph, MCP, and Human-in-the-Loop workflows.">
+  <meta name="author" content="Param Pandya (parampandya.dev)">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://destino.parampandya.dev/docs">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- Open Graph / Facebook / LinkedIn / Discord -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://destino.parampandya.dev/docs">
+  <meta property="og:title" content="Documentation — Destino | Multi-Agent Travel System Architecture">
+  <meta property="og:description" content="Technical documentation and architecture overview for Destino, an AI-powered multi-agent travel planner built with LangGraph, MCP, and Human-in-the-Loop workflows.">
+  <meta property="og:site_name" content="Destino Documentation">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://destino.parampandya.dev/static/og-image.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://destino.parampandya.dev/docs">
+  <meta name="twitter:title" content="Documentation — Destino | Multi-Agent Travel System Architecture">
+  <meta name="twitter:description" content="Technical documentation and architecture overview for Destino, an AI-powered multi-agent travel planner built with LangGraph, MCP, and Human-in-the-Loop workflows.">
+  <meta name="twitter:image" content="https://destino.parampandya.dev/static/og-image.png">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Destino Multi-Agent Travel System Architecture Documentation",
+    "description": "Technical documentation and architecture overview for Destino, an AI-powered multi-agent travel planner built with LangGraph, MCP, and Human-in-the-Loop workflows.",
+    "url": "https://destino.parampandya.dev/docs",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://destino.parampandya.dev/docs"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Destino",
+      "url": "https://destino.parampandya.dev"
+    }
+  }
+  </script>
+
+  <!-- Google Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css?v=17">
+</head>
+<body>
+  <!-- Interactive Constellation Network Canvas -->
+  <canvas id="starfieldCanvas" aria-hidden="true"></canvas>
+
+  <!-- Top Glass Navigation Bar -->
+  <header class="navbar-wrapper">
+    <nav class="navbar-container" aria-label="Main Navigation">
+      <div class="nav-brand">
+        <div class="brand-avatar" aria-hidden="true">✈️</div>
+        <span class="brand-title">Destino</span>
+      </div>
+
+      <div class="badge-status nav-center-badge">
+        <span class="green-dot pulse" aria-hidden="true"></span>
+        SYSTEM DOCUMENTATION
+      </div>
+
+      <div class="nav-actions">
+        <a href="/" class="doc-link">← Back to App</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="app-container">
+    <!-- Header Hero -->
+    <section class="hero-section" aria-labelledby="doc-heading">
+      <h1 id="doc-heading" class="hero-title">DOCUMENTATION</h1>
+      <div class="tech-stack-badge">
+        <span>LangGraph</span>
+        <span class="dot-sep">•</span>
+        <span>MCP</span>
+        <span class="dot-sep">•</span>
+        <span>Supervisor Routing</span>
+        <span class="dot-sep">•</span>
+        <span>HITL Workflows</span>
+      </div>
+      <p class="hero-description">
+        Comprehensive technical guide to Destino's multi-agent architecture, supervisor routing algorithms, live MCP tool adapters, and human-in-the-loop state interrupts.
+      </p>
+    </section>
+
+    <!-- Technical Documentation Content -->
+    <section class="seo-info-section" aria-label="Destino Technical Documentation">
+      <div class="seo-card">
+        <h2>What is Destino?</h2>
+        <p>
+          <strong>Destino</strong> is an autonomous multi-agent travel orchestration framework engineered with <strong>LangGraph</strong> and the <strong>Model Context Protocol (MCP)</strong>. Unlike traditional single-prompt chatbot wrappers, Destino operates as an intelligent multi-agent network: a central <strong>Supervisor Agent</strong> decomposes incoming user queries, enforces safety and domain guardrails, dynamically selects specialized domain agents (flights, hotels, weather, budget), and aggregates results into a structured draft itinerary for human review before finalization.
+        </p>
+      </div>
+
+      <div class="seo-card">
+        <h2>How Destino Works</h2>
+        <p>
+          Destino converts natural language travel requests into personalized itineraries through a stateful execution pipeline:
+        </p>
+        <div class="architecture-flow-diagram" aria-label="Destino Multi-Agent Workflow Diagram">
+          <div class="flow-step">
+            <span class="flow-icon">📝</span>
+            <strong>User Input & Constraints</strong>
+            <small>Query, duration, budget & currency selection</small>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step highlight">
+            <span class="flow-icon">🧠</span>
+            <strong>Input Guardrail & Supervisor Agent</strong>
+            <small>Domain validation & dynamic specialist routing</small>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-branch-grid">
+            <div class="branch-card">✈️ Flight Agent (AviationStack)</div>
+            <div class="branch-card">🏨 Hotel Agent (Tavily MCP)</div>
+            <div class="branch-card">🌤️ Weather Agent (OpenWeather)</div>
+            <div class="branch-card">💰 Budget Agent (Feasibility)</div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">
+            <span class="flow-icon">🗺️</span>
+            <strong>Itinerary Aggregation Agent</strong>
+            <small>Draft itinerary generation</small>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step highlight-amber">
+            <span class="flow-icon">👤</span>
+            <strong>Human-in-the-Loop Interrupt</strong>
+            <small>User feedback & approval checkpoint</small>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step highlight-green">
+            <span class="flow-icon">✨</span>
+            <strong>Final Polished Output</strong>
+            <small>Structured multi-category travel plan</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="seo-card">
+        <h2>Autonomous Agent Network</h2>
+        <p>
+          Destino distributes tasks across dedicated specialist agents running within a unified state graph:
+        </p>
+        <div class="capabilities-grid">
+          <div class="capability-card">
+            <div class="cap-icon">🧠</div>
+            <h3>Supervisor & Guardrail Agent</h3>
+            <p>Validates query safety and relevance, extracts travel constraints (origin, destination, budget, style), and determines optimal routing to specialist sub-agents.</p>
+          </div>
+
+          <div class="capability-card">
+            <div class="cap-icon">✈️</div>
+            <h3>Flight Specialist Agent</h3>
+            <p>Interfaces via MCP to retrieve live airport metadata, airline routes, direct/connecting leg options, peak season alerts, and currency-adjusted airfare estimates.</p>
+          </div>
+
+          <div class="capability-card">
+            <div class="cap-icon">🏨</div>
+            <h3>Hotel Discovery Agent</h3>
+            <p>Executes web search tool calls to query curated stays, safety assessments, luxury vs budget accommodations, and neighborhood location advice.</p>
+          </div>
+
+          <div class="capability-card">
+            <div class="cap-icon">🌤️</div>
+            <h3>Weather Specialist Agent</h3>
+            <p>Queries custom OpenWeather MCP servers for real-time temperatures, five-period forecasts, seasonal advice, and packing suggestions.</p>
+          </div>
+
+          <div class="capability-card">
+            <div class="cap-icon">💰</div>
+            <h3>Budget Analyst Agent</h3>
+            <p>Evaluates financial feasibility, identifies risk areas (overpriced stays, surge transport), recommends cost savings, and computes total estimates in preferred currency.</p>
+          </div>
+
+          <div class="capability-card">
+            <div class="cap-icon">🗺️</div>
+            <h3>Itinerary Aggregator Agent</h3>
+            <p>Synthesizes flight, hotel, weather, and budget data into a cohesive day-by-day travel plan, resolving scheduling conflicts and optimizing flow.</p>
+          </div>
+
+          <div class="capability-card">
+            <div class="cap-icon">👤</div>
+            <h3>Human-in-the-Loop Agent</h3>
+            <p>Leverages LangGraph state interrupts (`interrupt()`) to pause execution. Allows travelers to approve the draft or submit revision feedback before finalizing.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="seo-card">
+        <h2>Engineering Architecture & Integrations</h2>
+        <p>
+          Built for high performance, state resilience, and strict domain control:
+        </p>
+        <ul class="tech-feature-list">
+          <li><strong>LangGraph State Graphs</strong>: Manages stateful cyclic transitions, checkpointer persistence (PostgreSQL / MemorySaver), and dynamic graph routing.</li>
+          <li><strong>Model Context Protocol (MCP)</strong>: Standardized client adapters (`MultiServerMCPClient`) connecting agents asynchronously to live Tavily, AviationStack, and custom FastMCP servers.</li>
+          <li><strong>FastAPI & REST Endpoints</strong>: Exposes clean REST endpoints (`/api/travel`, `/api/travel/approve`, `/health`) with async execution handling.</li>
+          <li><strong>Llama-3.3-70B via Groq</strong>: High-speed inference engine providing structured JSON extraction and rapid multi-turn reasoning.</li>
+        </ul>
+      </div>
+
+      <div class="seo-card">
+        <h2>Engineering Decisions & Safeguards</h2>
+        <p>
+          Key architectural choices behind Destino's production design:
+        </p>
+        <ul class="tech-feature-list">
+          <li><strong>Stateful Graph Interruption</strong>: Pausing execution via `interrupt()` preserves full conversation state and past tool results across user approval cycles.</li>
+          <li><strong>MCP Tool Decoupling</strong>: Tool servers (OpenWeather, AviationStack, Tavily) run as isolated FastMCP microservices, isolating core agent logic from third-party API changes.</li>
+          <li><strong>Multi-Currency Normalization</strong>: Automatic currency conversion layer standardizes budget outputs across INR (₹), USD ($), EUR (€), and GBP (£).</li>
+          <li><strong>Input Guardrailling</strong>: Front-line validation agent filters non-travel queries before invoking downstream agent networks, saving compute and preventing hallucinations.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Destino — Designed & Engineered by <a href="https://parampandya.dev" target="_blank" rel="noopener" style="color: #818cf8; text-decoration: none; font-weight: 700;">Param Pandya</a>
+  </footer>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
