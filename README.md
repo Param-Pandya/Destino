@@ -234,5 +234,5 @@ Designed and Engineered by **Param Pandya**
 - Website: [parampandya.dev](https://parampandya.dev)  
 - GitHub: [@param-pandya](https://github.com/param-pandya)
 - Linkedin: [parampandya](https://www.linkedin.com/in/parampandya/)
- 
+
 Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
