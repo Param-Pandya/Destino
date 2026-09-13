@@ -53,7 +53,7 @@ def _require_env(name: str) -> str:
 def get_llm():
     groq_key = _require_env("GROQ_API_KEY")
     return ChatGroq(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
         api_key=groq_key,
     )
 
